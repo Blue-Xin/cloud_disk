@@ -14,21 +14,21 @@ import (
 	"github.com/zeromicro/go-zero/core/logx"
 )
 
-type RegisterLogic struct {
+type MailCodeSendLogic struct {
 	logx.Logger
 	ctx    context.Context
 	svcCtx *svc.ServiceContext
 }
 
-func NewRegisterLogic(ctx context.Context, svcCtx *svc.ServiceContext) *RegisterLogic {
-	return &RegisterLogic{
+func NewMailCodeSendLogic(ctx context.Context, svcCtx *svc.ServiceContext) *MailCodeSendLogic {
+	return &MailCodeSendLogic{
 		Logger: logx.WithContext(ctx),
 		ctx:    ctx,
 		svcCtx: svcCtx,
 	}
 }
 
-func (l *RegisterLogic) Register(req *types.MailCodeRequest) (resp *types.MailCodeReply, err error) {
+func (l *MailCodeSendLogic) MailCodeSend(req *types.MailCodeRequest) (resp *types.MailCodeReply, err error) {
 	//该邮箱不存在
 	count, err := models.Engine.Where("email=?", req.Email).Count(new(models.UserBasic))
 	if err != nil {

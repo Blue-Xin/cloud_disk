@@ -5,6 +5,7 @@ import (
 	"crypto/tls"
 	"fmt"
 	"github.com/golang-jwt/jwt/v4"
+	"github.com/google/uuid"
 	"gopkg.in/gomail.v2"
 	"math/rand"
 	"time"
@@ -21,7 +22,7 @@ func GenerateToken(id int, identity, name string) (string, error) {
 		Identity: identity,
 		Name:     name,
 	}
-	token := jwt.NewWithClaims(jwt.SigningMethodES256, uc)
+	token := jwt.NewWithClaims(jwt.SigningMethodHS256, uc)
 	signedString, err := token.SignedString([]byte(define.JwtKey))
 	if err != nil {
 		return "", err
@@ -57,4 +58,9 @@ func RandCode() string {
 		code += string(s[rand.Intn(len(s))])
 	}
 	return code
+}
+
+func UUID() string {
+	uuidObj := uuid.New().String()
+	return uuidObj
 }

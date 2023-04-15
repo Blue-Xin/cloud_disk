@@ -9,16 +9,16 @@ import (
 	"zero/greet/internal/types"
 )
 
-func RegisterHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
+func UserRegisterHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		var req types.MailCodeRequest
+		var req types.UserRegisterRequest
 		if err := httpx.Parse(r, &req); err != nil {
 			httpx.ErrorCtx(r.Context(), w, err)
 			return
 		}
 
-		l := logic.NewRegisterLogic(r.Context(), svcCtx)
-		resp, err := l.Register(&req)
+		l := logic.NewUserRegisterLogic(r.Context(), svcCtx)
+		resp, err := l.UserRegister(&req)
 		if err != nil {
 			httpx.ErrorCtx(r.Context(), w, err)
 		} else {

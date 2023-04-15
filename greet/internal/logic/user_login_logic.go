@@ -3,6 +3,7 @@ package logic
 import (
 	"context"
 	"errors"
+	"fmt"
 	"zero/greet/helper"
 	"zero/greet/models"
 
@@ -31,6 +32,8 @@ func (l *UserLoginLogic) UserLogin(req *types.LoginRequest) (resp *types.LoginRe
 	//从数据库查询当前用户
 	user := new(models.UserBasic)
 	get, err := models.Engine.Where("name=? and password = ?", req.Name, helper.Md5(req.Password)).Get(user)
+	md5 := helper.Md5(req.Password)
+	fmt.Println(md5)
 	if err != nil {
 		return nil, err
 	}

@@ -7,8 +7,12 @@ service greet-api {
 	get /user/UserDetail (UserDetailRequest) returns (UserDetailReply)
 	
 	//验证码邮件发送,判断邮箱是否存在
-	@handler Register
-	post /register (MailCodeRequest) returns (MailCodeReply)
+	@handler MailCodeSend
+	post /mail/code/send/register (MailCodeRequest) returns (MailCodeReply)
+	
+	//用户注册
+	@handler UserRegister
+	post /user/register (UserRegisterRequest) returns (UserRegisterReply)
 }
 
 type LoginRequest {
@@ -35,3 +39,11 @@ type MailCodeRequest {
 
 type MailCodeReply {
 }
+
+type UserRegisterRequest {
+	Name     string `json:"name"`
+	Password string `json:"password"`
+	Email    string `json:"email"`
+	Code     string `json:"code"`
+}
+type UserRegisterReply {}
